@@ -29,6 +29,8 @@ namespace BusinessLayer.Concrete
                 repo.Insert(p);
             }
         }
+
+
     }
 
 }
