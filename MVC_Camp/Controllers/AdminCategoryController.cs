@@ -11,17 +11,11 @@ using FluentValidation.Results;
 
 namespace MVC_Camp.Controllers
 {
-    public class CategoryController : Controller
+    public class AdminCategoryController : Controller
     {
         CategoryManager cm = new CategoryManager(new EfCategoryDal());
 
-        // GET: Category
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult GetCategoryList()
         {
             var categoryValues = cm.GetList();
             return View(categoryValues);
@@ -42,7 +36,7 @@ namespace MVC_Camp.Controllers
             if (results.IsValid)
             {
                 cm.CategoryAddBl(p);
-                return RedirectToAction("GetCategoryList");
+                return RedirectToAction("Index");
             }
             else
             {
@@ -51,8 +45,29 @@ namespace MVC_Camp.Controllers
                     ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
                 }
             }
-
+            
             return View();
+        }
+
+        public ActionResult DeleteCategory(int id)
+        {
+            var category = cm.GetById(id);
+            cm.CategoryDelete(category);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult EditCategory(int id)
+        {
+            var categoryValue = cm.GetById(id);
+            return View(categoryValue);
+        }
+
+        [HttpPost]
+        public ActionResult EditCategory(Category category)
+        {
+            cm.CategoryUpdate(category);
+            return RedirectToAction("Index");
         }
     }
 }

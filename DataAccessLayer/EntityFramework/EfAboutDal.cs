@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EntityLayer.Concrete;
 
-namespace DataAccessLayer.Abstract
+namespace DataAccessLayer.EntityFramework
 {
-    public interface ICategoryDal:IRepository<Category>
-    { 
+    class EfAboutDal
+    {
     }
 }
- 
